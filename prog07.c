@@ -145,7 +145,7 @@ void preorder(Node *curr)
   if (curr == NULL)
   {
 
-    return; // tree is empty, nothing to output
+    return; // tree is empty
   }
   else
   {
@@ -189,8 +189,17 @@ bool isHeapOrdered(Node *curr)
 // one child
 int numSingleChild(Node *curr)
 {
+  if (curr == NULL || (curr->left == NULL && curr->right == NULL))
+  {
+    return 0;
+  }
 
-  return -99; // dummy place-holder code
+  if (curr->left == NULL || curr->right == NULL)
+  {
+    return 1 + numSingleChild(curr->left) + numSingleChild(curr->right);
+  }
+
+  return numSingleChild(curr->left) + numSingleChild(curr->right);
 }
 
 // transform the subtree pointed to by curr to be
@@ -198,6 +207,23 @@ int numSingleChild(Node *curr)
 // becomes the left child, and vice versa
 void makeMirror(Node *curr)
 {
+  if (curr == NULL)
+  {
+    return; // empty tree
+  }
+  else
+  {
+    Node *temp;
+
+    // swap
+    temp = curr->left;
+    curr->left = curr->right;
+    curr->right = temp;
+
+    // recursionnnnnnnnn
+    makeMirror(curr->left);
+    makeMirror(curr->right);
+  }
 }
 
 // return the number of nodes in the subtree
