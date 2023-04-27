@@ -250,24 +250,18 @@ int height(Node *curr)
 {
   if (curr == NULL)
   {
-
-    return -1; // tree is empty
+    return 0;
   }
-  else
+
+  if (curr->left == NULL && curr->right == NULL)
   {
-
-    int leftHeight = height(curr->left); // left subtree
-
-    int rightHeight = height(curr->right); // right subtree
-
-    if (leftHeight > rightHeight)
-
-      return leftHeight + 1;
-
-    else
-
-      return rightHeight + 1;
+    return 1;
   }
+
+  int leftHeight = height(curr->left);
+  int rightHeight = height(curr->right);
+
+  return (1 + (leftHeight > rightHeight ? leftHeight : rightHeight));
 }
 
 // return true if-and-only-if the subtree below curr
